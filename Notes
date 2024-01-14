@@ -1,0 +1,18 @@
+.HTML uses Emmet->generate some code for uses
+CDN -why we use it what is it
+crossOrigin
+
+React comes with the philosphy to manupulate the DOM using javascript
+
+//{} this object is the place where we give atrributes to our tag
+
+react element is js object
+ReactElemet(object)=> HTML(Browser UNderstand)
+
+while it is rendering into its DOM (converting object to html)
+
+props is attribute or Children
+
+JSX to make complex react code simpler
+
+//<div id="root"> root.render will replace the whatever code is been there previously in div
