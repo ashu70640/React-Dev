@@ -7,7 +7,7 @@ React comes with the philosphy to manupulate the DOM using javascript
 //{} this object is the place where we give atrributes to our tag
 
 react element is js object
-ReactElemet(object)=> HTML(Browser UNderstand)
+ReactElement(object)=> HTML(Browser UNderstand)
 
 while it is rendering into its DOM (converting object to html)
 
@@ -16,3 +16,351 @@ props is attribute or Children
 JSX to make complex react code simpler
 
 //<div id="root"> root.render will replace the whatever code is been there previously in div
+
+npm is standard repo for all the packages
+
+package.json is the configuaration for npm
+
+^(caret) used for automatically update the minor versions
+
+~(tilde) used for automatically update to the major versions
+
+package-lock.json -keeps track of exact version that has been installed
+
+node_modules-containes the code of installed dependencies(like parcel)(this is known as transitive dependencies)
+
+if we have package-lock and package.json we can recreate our node_modules(by just npm install command)
+
+if we can regenerate something don't put on git(git should only include important files)
+
+ignited our app using parcel
+
+npx -means executing the package
+ex-npx parcel index.html(Here index.html is the source)
+Here parcel is going to the index.html and hosting the dev build to localhost
+
+CDN links are not a good way to bring React and React-DOM into our projects(because we don't want another negtwork call to react using CDN links and also new versions keep changing so we need to everytime change the CDN links) that's why we use npm package of react
+
+import React from "react";//in this "react" is referes to the react in the node modules
+
+<script type="module" src="./App.js"></script>//here if we remove the type="module" then it will trwo an error of browser don't understand imports and exports
+
+for prod (npx parcel build index.html)
+
+in package.json "main": "App.js",//remove this beacause parcel has entry point as index.html
+
+(npx parcel build index.html) //when we run this command it puts the build to dist folder and in the browser whatever we are seeing is coming from dist folder and dist folder uses thye parce-cache to update the changes
+
+for making our app compatible for old browser we use browsers list(can take a look to browserslist.dev)
+
+to run Build run command-->npm run build
+
+//React element
+
+// const heading = React.createElement("h1", { id: "heading" }, "Namaste React");
+
+// const root = ReactDOM.createRoot(document.getElementById("root"));
+// root.render(heading);(core of react)
+
+//JSX(js syntax to create react elements)
+//JSX is not same as react
+//jsx just make life esay for react developers
+
+JSX code is first traspiled(with the help of parcel here and parcel itself don't do this parcel uses babel to do it) before reaching the Browser engine
+
+//JSX->transpiles into react.createElement->JS Object->HTMLElement(render)
+const jsxHeading = <h1 id="heading">Namaste React using JSX</h1>;
+
+If we have to give atrributes to the JSX we should use the camelCase
+//const jsxHeading = <h1 className="head">Namaste React using JSX</h1>;
+
+//need to explore the tags/atrributrs in jsx
+
+const jsxHeading = (<h1 className="head">Namaste React using JSX</h1>)//need to wrap the multiline jsx using round barckets beacuse Babel needs to understand where jsx is starting and ending
+
+//React element
+
+const Title = (
+
+  <h1 className="head" tabIndex="5">
+    Namaste React using JSX
+  </h1>
+);
+//this is not html in js this is jsx(html like syntax)
+
+//react component
+//1.Class base component(old way)
+//2.functional component(new Way)
+
+const num = 100;
+//react function component(return some JSX(react element))
+//<Title/> and <Title></Title> are same
+//can also call fn from this {Title()}
+const HeadingComponent = () => (
+
+  <div id="container">
+    {Title}//we can put js into it by senitising the malecious attacks and data
+    <h1 className="heading">Namaste React Functional Component</h1>;
+  </div>
+); //this is component composition
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<HeadingComponent />); //component rendring
+
+when we have to givestyle inside JSx we have to use Js Object inside {}
+
+Props are basically Object(when passes they destrucure on the fly)(js part not react)
+
+//ConfigDrivenUi(our website is driven by data across the world)**\*\***\***\*\***
+controlling our UI using a Data\Config
+config comes from BackEnd
+
+Ui layer and Data layer together makes a Frontend Applcation
+
+Using keys is very imp (beacuse when we don't use key react don't know which new key id has been added ,adding key protect react whole page to rerender and to identify which new component has been added)
+
+not using keys<<<using indexes<<<using keys id
+
+never ever used hardcoded string in component file
+
+if we want to export multiple things then we use named exports(use {} for importing named exports)
+
+react is solving fast DOM manupulation
+
+State Variable-powerful variable(for that we use hooks called a useState)(normal js fn given by react)
+
+whenever state variable updates react re-renders(reconcilation cycle) the components
+
+Monolith Architecture
+Micro Service Architecture(for each and every small thing there is project(known as seperation of concerns and called as single responsibility principle))
+
+2 Methods for UI interacting with Backend
+1-->Page Loads-->API Calls-->Renders Data
+2-->Page Loads-->Render-->API Call-->Re-Renders the Page after getting the Data
+
+UseEffect-->if have tod do something after rendering components
+
+useEffect()--everytime the component renders useEffect will be called (when no dependency array is there)
+
+useEffect(()=>{
+console.log('useEffect Called');
+},[]//dependency array);
+
+//if dependency array is empty=[]=>then useEffect is called once when re-renders
+//if there is something in the dependency array then useEffect will ony be called when dependency changes
+
+useEffect(()=>{
+console.log('useEffect Called');
+},[btnNamereact]//dependency array);
+//here useEffect is called when the btnNameReact is updated
+
+//Does not create and use the UseState varialbe outside the component
+
+//never create the useState inside the IF-ElSE,For-Loop,functions(only on higher level to keep in top of component code)
+
+import {createBrowserRouter} from "react-router-dom"
+//here createBrowserRouter create a routing configuration for us(what will happen on a specific route)
+
+RouterProvider will actualy provide the router to the app
+
+useRouteError ( this is a hook which is given by react-router-dom)//its show more details errors
+
+we can navigate tp the different page without reloading the whole page
+//by using Link given by react-router-dom
+//it just refreshes the component not re-load the page that is why react applications are known as single page applications
+
+2-types of routing -client side and server side
+
+path: "/restaurants/:resId"//here :resId is dynamic
+
+behind the scene Link is using achor tag
+
+//class based Components
+import React from "react";
+class UserClass extends React.Component {
+render() {
+return (
+
+<div className="user-card">
+<h2>Name: Ashu</h2>
+<h3>Location: Faridabad</h3>
+<h4>Contact: @ashu70640</h4>
+</div>
+);
+}
+}
+//never update stateVarialbes directly in classbase component
+
+in class base component -whenever a class is instantiated a contructor is called and then render is called
+
+parent contructor-> parent render-> child contructor ->child render
+
+contructor->render->componentDidMount()
+
+parent contructor-> parent render-> child contructor ->child render->child(componentDidMount())->parent(componentDidMount()) will be called in in this order
+
+componentDidMount() is used to make API calls
+
+<UserClass
+name={"Ashutosh Function Class"}
+location={"Faridabad, India"}
+/>
+<UserClass name={"Om Function Class"} location={"Faridabad, India"} />
+//in this
+-parent component called first
+-parent constructor
+-parent render
+-child(Ashutosh) constructor
+-child(Ashutosh) render
+-child(Om) constructor
+-child(Om) render
+-child(Ashutosh) componentDidMount()
+-child(Om) componentDifMount()
+-Parent componentDidMount()
+
+https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/(shows the react lifecycle method)
+
+we should follow the single responsibility priciple in components (our code becomes reuseable,maintainalbe,testable)
+
+use of custom hooks is not mandatory but by using it we can make our code more readable,modular,reusable
+
+use react conventions of writing code otherwose linters will throw errors if linters are included in react project
+
+//Chunking(means splitting the code for good performance)
+//code splitting
+//dynamic bundling
+//or also called lazy loading(initialy we should not have grocery code but when we navigate tot grocery we will get code there)
+we do loading when required (lazy loading)
+//also know as on demand loading
+
+lazy() fn comes from react package
+
+react gives us suspense for handling the lazy loading issue
+
+fallbacks used to show something till the data is fetching
+
+for css we can use SASS and SCSS(but this is not a recommended way to write CSS in production ready app)
+
+styled components are used for production ready CSS in case of REACT
+
+in this project have used tailwing CSS
+tailwind css uses postcss behind the seen
+
+parcel uses postcssrc to understand tailwind
+
+can use dynamic classes in tailwind lioke this w-[250px]
+
+Higher order components(HOC)
+HOC is a fn that takes a component and returns a component-->it just takes the component and enhances it and then return it
+
+React mainly consists of-->
+UI layer and Data layer
+UI layer mainly consists of JSX
+Data layer consist of State ,props and local variables
+
+accordion
+
+install react developer tools to hepl in debugging in browser
+
+lifting the state up in case of restaurant category
+
+controlled and uncontrolled(parent does't not have controll over it s children) components
+
+props drilling(paasing the props from parent to child )
+react context(give power to acces the data from anywhere)
+
+while we are useing react context(createContext library) we should avoid using props drilling
+
+react gives us useContext hook to use createContext
+
+ifwe wnat ot override the default context then we use UserContext.Provider to wrap the whole app
+
+can we have nested to UserContext.provide in app
+
+redux is the state mangemnet library its an external library (not inside react)
+redux works with data layer in th application
+
+redux is not mandatory(redux and react is seperate library)
+in large scale application redux give us the gret solution for it
+
+redux offers easy debugging
+
+libraries used react-redux(to bridge the gap b/t the two)
+latest use redux toolkit
+redux is a big object kept in a central global place
+redux has slices(to keep the logical partitions)
+ex->{[cart][user]}user and cart slices
+
+when we click Add+ button ->it dispaches and action-->after that it calls the fn-->and the fn(reducer fn) modifies the cart(modifies the slice of the redux store)(we can't actually directly modify the cart)
+
+to read data from cart we use something know as selector(subscribing to the store) the selector will modify the cart data
+
+subscribe to the store means data(cart) is sync with the store
+
+to read the data inside cart items we use selector(hook prividid by react)
+
+for dispact we have useDispacth(reacr hook)
+
+dispatch(addItem("pizza"))//pizza->action.payload;
+
+Need to know the difference between (onClick={handleAddItem},onClick={()=>handleAddItem(item)},onClick={handleAddItem(item)})
+
+whenever we are sleector ,make sure that we are subscribing to the right portion of the store
+(to get the good performance also ew need to do this)
+
+in older version of redux (don't mutate the state and returning was mandatory)
+
+in newer version of redux we have to mutate the state(now returning is mandatory redux do it automagically)
+
+redux uses immer library behind the scene to do the mutation of state
+
+Redux tool kit says -either mutate the state or return a new state
+
+clearCart:{
+return {itemCart[]}
+}
+
+have to explre redux toolkit
+
+create react app comes with react testing library
+for when we are building code from scratch we need to intigrate it
+
+jest(js testting framework) is standard when we are writing test cases
+
+in **tests** folder consider as test files.
+test.js,test.ts,spec.js,spec.ts consider as test files
+
+\_\_->dunder(reserved word) and dunder test
+
+const button = screen.getByRole("button");//roles are defined by jest in the testing library
+
+//this is called quering
+const inputBoxes = screen.getAllByRole("textbox");(return jsx here)//if there is multiple item matching this query then use getAllBy...
+
+console.log(inputBoxes.length)//return array of objects(react vertual dom elements)
+
+describe("Contact Us Page Test Cases", () => {})//used to describe a set of test cases releated to same group
+
+test("should load contact us component", () => {
+render(<Contact />);
+
+    const heading = screen.getByRole("heading");
+    expect(heading).toBeInTheDocument();
+
+});//instead of test we can write it as it also
+
+render(
+<Provider store={appStore}>
+
+<Header />
+</Provider>
+);//here used provider beacuse redux is not a part of react
+BrowserRouter>//used it in testing so that link component will get understand by jest
+
+//helper fns
+beforeAll(() => {
+console.log("Before All");
+});
+beforeEach(() => {
+console.log("Before Each");
+});//helpful in cleanup tasks
